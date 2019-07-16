@@ -25,6 +25,7 @@
     "umi": "^2.8.11"
   },
   "devDependencies": {
-    "tslint": "^5.18.0"
+    "tslint": "^5.18.0",
+    "umi-plugin-react": "^1.9.10"
   }
 }

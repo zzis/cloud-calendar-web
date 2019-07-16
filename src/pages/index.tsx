@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-export default class App extends React.Component {
+import Header from '@/components/header/index';
+
+interface IAppState {}
+interface IAppProps {}
+
+export default class App extends React.Component<IAppProps, IAppState> {
   public render() {
-    return <div>Hello world</div>;
+    return (
+      <Fragment>
+        <Header />
+      </Fragment>
+    );
   }
 }
