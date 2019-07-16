@@ -1,0 +1,30 @@
+{
+  "name": "cloud-calendar-web",
+  "version": "1.0.0",
+  "description": "cloud calendar web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zzis/cloud-calendar-web.git"
+  },
+  "keywords": [
+    "web",
+    "calendar"
+  ],
+  "author": "zz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zzis/cloud-calendar-web/issues"
+  },
+  "homepage": "https://github.com/zzis/cloud-calendar-web#readme",
+  "dependencies": {
+    "react": "^16.8.6",
+    "umi": "^2.8.11"
+  },
+  "devDependencies": {
+    "tslint": "^5.18.0"
+  }
+}

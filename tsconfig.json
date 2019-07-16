@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "baseUrl": ".",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "jsx": "preserve",
+    "paths": { },
+  },
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+  ],
+}
