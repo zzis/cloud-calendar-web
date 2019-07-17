@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
-import Header from '@/components/header/index';
+import Header from '@/components/Header/index';
+import Home from './Home/index';
 
 interface IAppState {}
 interface IAppProps {}
@@ -10,6 +11,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
     return (
       <Fragment>
         <Header />
+        <Home />
       </Fragment>
     );
   }
