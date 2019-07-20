@@ -24,6 +24,7 @@
   "dependencies": {
     "@toast-ui/react-calendar": "^1.0.2",
     "antd": "^3.20.5",
+    "lodash-decorators": "^6.0.1",
     "moment": "^2.24.0",
     "react": "^16.8.6",
     "umi": "^2.8.11"
