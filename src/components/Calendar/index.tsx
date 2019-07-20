@@ -12,34 +12,20 @@ export interface ICalendarProps {}
 export interface ICalendarState {}
 
 export default class Calendar extends React.Component<ICalendarProps, ICalendarState> {
+  private calendarRef: any = React.createRef();
+  private calendarInstance;
+
+  public componentDidMount() {
+    this.calendarInstance = this.calendarRef.current.getInstance();
+  }
+
   public render() {
-    const today = new Date();
-    const calendars = [
-      {
-        id: '0',
-        name: 'Private',
-        bgColor: '#9e5fff',
-        borderColor: '#9e5fff',
-      },
-      {
-        id: '1',
-        name: 'Company',
-        bgColor: '#00a9ff',
-        borderColor: '#00a9ff',
-      },
-    ];
-    const timeZones = [
-      {
-        timezoneOffset: 480,
-        displayLabel: 'GMT+08:00',
-        tooltip: 'Beijing',
-      },
-    ];
     return <div className={style.calendarContainer}>
       <TuiCalendar
         view={'month'}
         height={500}
         useCreationPopup
+        ref={this.calendarRef}
       />
     </div>;
   }
