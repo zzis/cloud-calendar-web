@@ -3,8 +3,10 @@ export default {
     [
       'umi-plugin-react',
       {
-        dva: true,
-        antd: true
+        dva: {
+          immer: true,
+        },
+        antd: true,
       }
     ],
   ],

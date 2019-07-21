@@ -4,6 +4,7 @@
     "semicolon": [true, "always"],
     "quotemark": [true, "single"],
     "object-literal-sort-keys": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "no-unused-expression": false
   }
 }

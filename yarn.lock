@@ -1909,6 +1909,11 @@ antd@^3.20.5:
     shallowequal "^1.1.0"
     warning "~4.0.3"
 
+any-base@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/any-base/-/any-base-1.1.0.tgz#ae101a62bc08a597b4c9ab5b7089d456630549fe"
+  integrity sha512-uMgjozySS8adZZYePpaWs8cxB9/kdzmpX6SgJZ+wbz1K5eYk5QMYDVJaZKhxyIHUdnnJkfR7SVgStgH7LkGUyg==
+
 anymatch@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-2.0.0.tgz#bcb24b4f37934d9aa7ac17b4adaf89e7c76ef2eb"
@@ -4243,6 +4248,13 @@ dva-loading@3.0.6:
   integrity sha512-OhrKWY2v4XuFu7IyKvKw4yQN1lQHi7Bab+qupBbvRrjjBcOzc+OTNrI5v0Smc/wnitCG06i7wdxWloLM9P9Wng==
   dependencies:
     "@babel/runtime" "^7.0.0"
+
+dva-model-creator@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/dva-model-creator/-/dva-model-creator-0.3.0.tgz#28ccd7de31cbfa4a9a3c111d8837dbdabf8662b0"
+  integrity sha512-BcvDqWkgDIoIADWmlgpgzrJFmYV8fidkYrpE9yugpy3rX0kgxe/gtwpJZg5qB7HEXlFcW/NkvJGGeh6UgcrGiA==
+  dependencies:
+    warning "^4.0.3"
 
 dva@2.6.0-beta.6:
   version "2.6.0-beta.6"
@@ -9676,6 +9688,11 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
+prettier@1.15.3:
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
+  integrity sha512-gAU9AGAPMaKb3NNSUUuhhFAS7SCO4ALTN4nRIn6PJ075Qd28Yn2Ig2ahEJWdJwJmlEBTUfC7mMUSFy8MwsOCfg==
+
 prettier@1.18.2, prettier@^1.14.3, prettier@^1.17.1:
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.18.2.tgz#6823e7c5900017b4bd3acf46fe9ac4b4d7bda9ea"
@@ -11610,6 +11627,14 @@ shellwords@^0.1.1:
   resolved "https://registry.yarnpkg.com/shellwords/-/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
   integrity sha512-vFwSUfQvqybiICwZY5+DAWIPLKsWO31Q91JSKl3UYv+K5c2QRPzn0qzec6QPu1Qc9eHYItiP3NdJqNVqetYAww==
 
+short-uuid@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/short-uuid/-/short-uuid-3.1.1.tgz#3ff427074b5fa7822c3793994d18a7a82e2f73a4"
+  integrity sha512-7dI69xtJYpTIbg44R6JSgrbDtZFuZ9vAwwmnF/L0PinykbFrhQ7V8omKsQcVw1TP0nYJ7uQp1PN6/aVMkzQFGQ==
+  dependencies:
+    any-base "^1.1.0"
+    uuid "^3.3.2"
+
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
@@ -12834,6 +12859,22 @@ umi-plugin-dva@1.7.4:
     path-to-regexp "1.7.0"
     umi-utils "1.5.1"
 
+umi-plugin-dva@^1.7.5:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/umi-plugin-dva/-/umi-plugin-dva-1.7.5.tgz#d068deee71d03a72aa7f7e160a0a480ffcf0ba5a"
+  integrity sha512-vKl0WtUjhgyrB0HLBeJROur05Xs1M0hnmHX+Y5yLs97ccZ3Q+RY0UhtW5CLJV8QnilEpXzpl3n1otAe49Ehdkw==
+  dependencies:
+    babel-plugin-dva-hmr "0.4.2"
+    dva "2.6.0-beta.6"
+    dva-immer "0.4.5"
+    dva-loading "3.0.6"
+    globby "7.1.1"
+    lodash.uniq "4.5.0"
+    object-assign "4.1.1"
+    path-is-root "0.1.0"
+    path-to-regexp "1.7.0"
+    umi-utils "1.5.2"
+
 umi-plugin-hd@1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/umi-plugin-hd/-/umi-plugin-hd-1.6.0.tgz#e812550d6af83311eb226b354e62e35ee45a6e9b"
@@ -12948,6 +12989,16 @@ umi-utils@1.5.1:
   dependencies:
     chalk "2.4.2"
     is-url "1.2.4"
+    slash2 "2.0.0"
+
+umi-utils@1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/umi-utils/-/umi-utils-1.5.2.tgz#4633b384c94b6dd43643ad195f13b75b11a6464f"
+  integrity sha512-t0vqFRtwzLlerMAbt1d9VhYXmpc4f4/OL+7U076pbc8h9NrFtv3fv9dduDIQLfOY2bDdzuZ3fEPvJcEUIWdvrg==
+  dependencies:
+    chalk "2.4.2"
+    is-url "1.2.4"
+    prettier "1.15.3"
     slash2 "2.0.0"
 
 umi-webpack-bundle-analyzer@^3.3.3:
