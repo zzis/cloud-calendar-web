@@ -1,3 +1,5 @@
+const PROXY = 'http://localhost:3000/';
+
 export default {
   plugins: [
     [
@@ -7,7 +9,14 @@ export default {
           immer: true,
         },
         antd: true,
+        dll: true,
       }
     ],
   ],
+  proxy: {
+    '/api': {
+      'target': PROXY,
+      'changeOrigin': true,
+    },
+  }
 };
