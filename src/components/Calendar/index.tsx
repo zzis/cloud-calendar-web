@@ -6,6 +6,7 @@ import 'tui-calendar/dist/tui-calendar.css';
 import 'tui-date-picker/dist/tui-date-picker.css';
 import 'tui-time-picker/dist/tui-time-picker.css';
 import shortId from 'short-uuid';
+import moment from 'moment';
 
 import { actions, ICalendarState } from '@/models/calendar.model';
 import { IUmiComponentProps } from '@/common/types/umi.type';
@@ -19,7 +20,11 @@ export interface ICalendarComponentState {
 
 type CalendarProps = IUmiComponentProps & ICalendarComponentProps & ReturnType<typeof mapStateToProps>;
 
+@connect(({ calendar }) => (
+  calendar
+))
 class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
+
   private calRef: any = React.createRef();
   private calendar;
   private color = '#9e5fff';
@@ -29,6 +34,24 @@ class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
     this.state = {
       schedules: [],
     };
+  }
+
+  public componentWillReceiveProps(nextProps) {
+    const { calendars } = nextProps;
+    this.calendar.setCalendars(nextProps.calendars);
+    calendars.forEach((calendar) => {
+      const { schedules } = calendar;
+      schedules.forEach((schedule) => {
+        this.calendar.createSchedules([Object.assign(schedule, {
+          start: moment(schedule.start).utc().format(),
+          end: moment(schedule.end).utc().format(),
+          category: 'time',
+          borderColor: calendar.bgColor,
+          bgColor: calendar.bgColor,
+          dragBgColor: calendar.bgColor,
+        })]);
+      });
+    });
   }
 
   public componentDidMount() {

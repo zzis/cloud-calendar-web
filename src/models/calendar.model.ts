@@ -1,23 +1,27 @@
 import { DvaModelBuilder } from 'dva-model-creator';
-import { addSchedule } from '@/actions/calendar.action';
+import { addSchedule, addCalendar } from '@/actions/calendar.action';
 import Schedule from '@/common/types/schedule.type';
+import Calendar from '@/common/types/calendar.type';
 
 export interface ICalendarState {
   schedules: Schedule[];
+  calendars: Calendar[];
 }
 
 const initState: ICalendarState = {
   schedules: [],
+  calendars: [],
 };
 
 const builder = new DvaModelBuilder<ICalendarState>(initState, 'calendar')
   // .case(addSchedule, addCalendarHandle);
   .immer(addSchedule, (state, payload: any) => {
-    state.schedules.push(payload);
-  });
+    return state.schedules.push(payload);
+  })
+  .immer(addCalendar, addCalendarHandler);
 
-function addCalendarHandle(state: ICalendarState, payload: any) {
-  state.schedules.push(payload);
+function addCalendarHandler(state: ICalendarState, payload: any) {
+  Object.assign(state.calendars, payload);
   return state;
 }
 
