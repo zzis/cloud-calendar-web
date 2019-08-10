@@ -7,6 +7,8 @@ import 'tui-date-picker/dist/tui-date-picker.css';
 import 'tui-time-picker/dist/tui-time-picker.css';
 import shortId from 'short-uuid';
 import moment from 'moment';
+import calendarService from '@/services/calendar.service';
+import { addCalendar } from '@/actions/calendar.action';
 
 import { actions, ICalendarState } from '@/models/calendar.model';
 import { IUmiComponentProps } from '@/common/types/umi.type';
@@ -85,6 +87,13 @@ class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
     this.calendar.on('beforeCreateSchedule', this.handleCreateSchedule);
     this.calendar.on('beforeUpdateSchedule', this.handleUpdateSchedule);
     this.calendar.on('beforeDeleteSchedule', this.handleDeleteSchedule);
+    this.initCalendar();
+  }
+
+  public async initCalendar() {
+    const { dispatch } = this.props;
+    const calendars = await calendarService.getAllCalendars();
+    dispatch(addCalendar(calendars));
   }
 
   @Bind

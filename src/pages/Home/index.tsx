@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import Calendar from '@/components/Calendar/index';
-import Uploader from '@/components/uploader/index';
+import Uploader from '@/components/Uploader/index';
 
 import style from './index.less';
 

@@ -14,7 +14,6 @@ const initState: ICalendarState = {
 };
 
 const builder = new DvaModelBuilder<ICalendarState>(initState, 'calendar')
-  // .case(addSchedule, addCalendarHandle);
   .immer(addSchedule, (state, payload: any) => {
     return state.schedules.push(payload);
   })

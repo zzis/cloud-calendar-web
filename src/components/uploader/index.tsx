@@ -18,10 +18,9 @@ export default class Uploader extends React.Component<IUploaderRealProps, IUplao
     onChange: this.onUploadStatusChange,
   };
 
-  @Bind()
+  @Bind
   public onUploadStatusChange(info) {
     if (info.file && info.file.status === 'done') {
-      // console.log('upload done');
       const { data } = info.file.response;
       const { dispatch } = this.props;
       dispatch(addCalendar(data));
