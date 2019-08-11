@@ -3,4 +3,6 @@ export default interface ISchedule {
   title: string;
   location?: string;
   calendarId: string;
+  start?: string;
+  end?: string;
 }

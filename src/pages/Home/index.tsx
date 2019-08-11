@@ -7,8 +7,8 @@ import style from './index.less';
 export default class Home extends React.Component {
   public render() {
     return <>
-      <Calendar />
       <Uploader />
+      <Calendar />
     </>;
   }
 }

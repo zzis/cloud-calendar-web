@@ -8,42 +8,83 @@ import 'tui-time-picker/dist/tui-time-picker.css';
 import shortId from 'short-uuid';
 import moment from 'moment';
 import calendarService from '@/services/calendar.service';
-import { addCalendar } from '@/actions/calendar.action';
+import { setCalendar } from '@/actions/calendar.action';
 
 import { actions, ICalendarState } from '@/models/calendar.model';
 import { IUmiComponentProps } from '@/common/types/umi.type';
 import style from './index.less';
+import ButtonBar, { CALENDAR_MODE_MAP } from './hooks/ButtonBar';
+import { CalendarMode } from '@/models/calendar.model';
 
 export interface ICalendarComponentProps {}
 
 export interface ICalendarComponentState {
-  schedules: any[];
 }
 
 type CalendarProps = IUmiComponentProps & ICalendarComponentProps & ReturnType<typeof mapStateToProps>;
 
-@connect(({ calendar }) => (
-  calendar
-))
 class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
 
   private calRef: any = React.createRef();
-  private calendar;
-  private color = '#9e5fff';
+  private calendar: BaseCalendar;
 
   constructor(props, context) {
     super(props);
-    this.state = {
-      schedules: [],
-    };
   }
 
-  public componentWillReceiveProps(nextProps) {
-    const { calendars } = nextProps;
-    this.calendar.setCalendars(nextProps.calendars);
+  public componentDidMount() {
+    window.moment = moment;
+    this.initCalendar();
+    this.initCalendarData();
+  }
+
+  public componentWillReceiveProps(nextProps: CalendarProps) {
+    this.updateCalendar(nextProps.calendars);
+    this.updateCurrentDate(nextProps.currentDate, nextProps.calendarMode);
+    this.updateCalendarView(nextProps.calendarMode);
+  }
+
+  public updateCalendarView(calendarMode: CalendarMode) {
+    if (calendarMode === this.props.calendarMode) {
+      return;
+    }
+    switch (calendarMode) {
+      case CalendarMode.daily:
+        this.calendar.changeView('day', true);
+        this.calendar.scrollToNow();
+        break;
+      case CalendarMode.weekly:
+        this.calendar.changeView('week', true);
+        this.calendar.scrollToNow();
+        break;
+      case CalendarMode.monthly:
+        this.calendar.setOptions({month: {visibleWeeksCount: 6, isAlways6Week: false}}, true);
+        this.calendar.changeView('month', true);
+        break;
+      case CalendarMode.twoWeeks:
+        this.calendar.setOptions({month: {visibleWeeksCount: 2}}, true);
+        this.calendar.changeView('month', true);
+        break;
+    }
+  }
+
+  public updateCurrentDate(currentDate: moment.Moment, calendarMode: CalendarMode) {
+    this.calendar.setDate(currentDate.startOf(CALENDAR_MODE_MAP[calendarMode]).format('YYYY-MM-DD'));
+  }
+
+  public updateCalendar(calendars) {
+    if (JSON.stringify(calendars) === JSON.stringify(this.props.calendars)) {
+      return;
+    }
+    console.log(calendars)
+    this.calendar.setCalendars(calendars);
     calendars.forEach((calendar) => {
       const { schedules } = calendar;
       schedules.forEach((schedule) => {
+        // check if schedule exists
+        if (this.calendar.getSchedule(schedule.id, calendar.id)) {
+          return;
+        }
         this.calendar.createSchedules([Object.assign(schedule, {
           start: moment(schedule.start).utc().format(),
           end: moment(schedule.end).utc().format(),
@@ -56,54 +97,41 @@ class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
     });
   }
 
-  public componentDidMount() {
+  public initCalendar() {
     this.calendar = new BaseCalendar(this.calRef.current, {
       defaultView: 'month',
       taskView: true,
       useCreationPopup: true,
       useDetailPopup: true,
       timezones: [{
-        timezoneOffset: 420,
+        timezoneOffset: 480,
         displayLabel: 'GMT+08:00',
         tooltip: 'Hong Kong',
       }],
     });
-    this.calendar.setCalendars([{
-      id: '1',
-      name: 'Private',
-      bgColor: this.color,
-      borderColor: this.color,
-    }]);
-    // this.calendar.createSchedules([{
-    //   id: '1',
-    //   calendarId: '1',
-    //   title: 'my schedule',
-    //   category: 'time',
-    //   dueDateClass: '',
-    //   bgColor: '#9e5fff',
-    //   start: '2019-07-22T22:30:00+09:00',
-    //   end: '2019-07-22T02:30:00+09:00',
-    // }]);
     this.calendar.on('beforeCreateSchedule', this.handleCreateSchedule);
     this.calendar.on('beforeUpdateSchedule', this.handleUpdateSchedule);
     this.calendar.on('beforeDeleteSchedule', this.handleDeleteSchedule);
-    this.initCalendar();
   }
 
-  public async initCalendar() {
+  public async initCalendarData() {
     const { dispatch } = this.props;
     const calendars = await calendarService.getAllCalendars();
-    dispatch(addCalendar(calendars));
+    dispatch(setCalendar(calendars));
   }
 
   @Bind
   public handleCreateSchedule(event) {
+    const calendar = this.props.calendars.find((c) => c.id === event.calendarId);
+    if (!calendar) {
+      return;
+    }
     const scheduleProps = {
       category: 'time',
       id: shortId.generate(),
-      borderColor: this.color,
-      bgColor: this.color,
-      dragBgColor: this.color,
+      borderColor: calendar.borderColor,
+      bgColor: calendar.bgColor,
+      dragBgColor: calendar.bgColor,
     };
     this.calendar.createSchedules([
       Object.assign(event, scheduleProps),
@@ -121,8 +149,21 @@ class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
     this.calendar.deleteSchedule(schedule.id, schedule.calendarId);
   }
 
+  @Bind
+  public prevAction() {
+    this.calendar.prev();
+  }
+
+  @Bind
+  public nextAction() {
+    this.calendar.next();
+  }
+
   public render() {
-    return <div ref={this.calRef} style={{height: 800}}/>;
+    return <>
+      <ButtonBar />
+      <div ref={this.calRef} style={{height: 800}}/>
+    </>;
   }
 }
 

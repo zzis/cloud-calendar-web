@@ -3,7 +3,8 @@ import React from 'react';
 import { Bind } from 'lodash-decorators';
 import { connect } from 'dva';
 import { IUmiComponentProps } from '@/common/types/umi.type';
-import { addCalendar } from '@/actions/calendar.action';
+import { setCalendar } from '@/actions/calendar.action';
+import style from './index.less';
 
 interface IUploaderProps {}
 interface IUplaoderState {}
@@ -16,6 +17,7 @@ export default class Uploader extends React.Component<IUploaderRealProps, IUplao
     name: 'file',
     action: '/api/calendar/upload',
     onChange: this.onUploadStatusChange,
+    showUploadList: false,
   };
 
   @Bind
@@ -23,13 +25,15 @@ export default class Uploader extends React.Component<IUploaderRealProps, IUplao
     if (info.file && info.file.status === 'done') {
       const { data } = info.file.response;
       const { dispatch } = this.props;
-      dispatch(addCalendar(data));
+      dispatch(setCalendar(data));
     }
   }
 
   public render() {
-    return <Upload {...this.uploadProps}>
-      <Icon type={'upload'} /><Button>Click to upload</Button>
-    </Upload>;
+    return <div className={style.uploadComponent}>
+      <Upload {...this.uploadProps}>
+        <Button icon="upload">Click to upload</Button>
+      </Upload>
+    </div>;
   }
 }
