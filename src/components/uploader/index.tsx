@@ -1,4 +1,4 @@
-import { Upload, Button, Icon } from 'antd';
+import { Upload, Button, Icon, message } from 'antd';
 import React from 'react';
 import { Bind } from 'lodash-decorators';
 import { connect } from 'dva';
@@ -23,7 +23,11 @@ export default class Uploader extends React.Component<IUploaderRealProps, IUplao
   @Bind
   public onUploadStatusChange(info) {
     if (info.file && info.file.status === 'done') {
-      const { data } = info.file.response;
+      const { data, errno, errMsg } = info.file.response;
+      if (errno) {
+        message.error(errMsg, 10);
+        return;
+      }
       const { dispatch } = this.props;
       dispatch(setCalendar(data));
     }
