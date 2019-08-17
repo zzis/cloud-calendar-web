@@ -33,7 +33,6 @@ class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
   }
 
   public componentDidMount() {
-    window.moment = moment;
     this.initCalendar();
     this.initCalendarData();
   }
@@ -76,7 +75,6 @@ class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
     if (JSON.stringify(calendars) === JSON.stringify(this.props.calendars)) {
       return;
     }
-    console.log(calendars)
     this.calendar.setCalendars(calendars);
     calendars.forEach((calendar) => {
       const { schedules } = calendar;
