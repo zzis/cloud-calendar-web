@@ -48,15 +48,15 @@ class Calendar extends React.Component<CalendarProps, ICalendarComponentState> {
       return;
     }
     switch (calendarMode) {
-      case CalendarMode.daily:
+      case CalendarMode.day:
         this.calendar.changeView('day', true);
         this.calendar.scrollToNow();
         break;
-      case CalendarMode.weekly:
+      case CalendarMode.week:
         this.calendar.changeView('week', true);
         this.calendar.scrollToNow();
         break;
-      case CalendarMode.monthly:
+      case CalendarMode.month:
         this.calendar.setOptions({month: {visibleWeeksCount: 6, isAlways6Week: false}}, true);
         this.calendar.changeView('month', true);
         break;

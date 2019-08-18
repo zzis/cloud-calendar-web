@@ -8,9 +8,9 @@ import { CalendarMode } from '@/models/calendar.model';
 import style from '../index.less';
 
 export const CALENDAR_MODE_MAP = {
-  monthly: 'month',
-  weekly: 'week',
-  daily: 'day',
+  month: 'month',
+  week: 'week',
+  day: 'day',
 };
 
 export default function ButtonBar() {
@@ -31,9 +31,9 @@ export default function ButtonBar() {
 
   const getMoveStepLength = () => {
     switch (calendar.calendarMode) {
-      case CalendarMode.daily:
-      case CalendarMode.weekly:
-      case CalendarMode.monthly:
+      case CalendarMode.day:
+      case CalendarMode.week:
+      case CalendarMode.month:
         return {
           stepLength: 1,
           mode: CALENDAR_MODE_MAP[calendar.calendarMode],
@@ -41,7 +41,7 @@ export default function ButtonBar() {
       case CalendarMode.twoWeeks:
         return {
           stepLength: 2,
-          mode: CALENDAR_MODE_MAP[CalendarMode.weekly],
+          mode: CALENDAR_MODE_MAP[CalendarMode.week],
         };
     }
   };

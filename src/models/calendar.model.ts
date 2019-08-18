@@ -12,9 +12,9 @@ export interface ICalendarState {
 }
 
 export enum CalendarMode {
-  monthly = 'monthly',
-  weekly = 'weekly',
-  daily = 'daily',
+  month = 'month',
+  week = 'week',
+  day = 'day',
   twoWeeks = 'twoWeeks',
 }
 
@@ -22,7 +22,7 @@ const initState: ICalendarState = {
   schedules: [],
   calendars: [],
   currentDate: moment(),
-  calendarMode: CalendarMode.monthly,
+  calendarMode: CalendarMode.month,
 };
 
 const builder = new DvaModelBuilder<ICalendarState>(initState, 'calendar')
