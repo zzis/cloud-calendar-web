@@ -27,22 +27,7 @@ export default class StatisticModel {
     week: '周',
     month: '月',
   };
-  public selectedDateType: string;
-  public calendars: ICalendar[];
-  public currentDate: moment.Moment;
-
-  public setCalendars(calendars) {
-    this.calendars = calendars;
-  }
-
-  public setCurrentDate(date: moment.Moment) {
-    this.currentDate = date;
-  }
-
-  public setSelectedDateType(dateType: string) {
-    this.selectedDateType = dateType;
-  }
-
+  
   public getCategoryInPeriod(calendars: ICalendar[], currentDate: moment.Moment, dateType: string): IFiteredCategoryByPeriod{
     const startOfPeriod = currentDate.clone().startOf(dateType as any);
     const endOfPeriod = currentDate.clone().endOf(dateType as any);

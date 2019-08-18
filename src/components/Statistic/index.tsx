@@ -30,13 +30,8 @@ class Statistic extends React.Component<StatisticProps, IStatisticState> {
     };
   }
 
-  componentWillReceiveProps(nextProps: StatisticProps) {
-    this.statisticModel.setCalendars(nextProps.calendars);
-  }
-
   @Bind
   public handleDateTypeChange(e) {
-    this.statisticModel.selectedDateType = e.target.value;
     const { calendars, currentDate } = this.props;
     const categoryInPeriod = this.statisticModel.getCategoryInPeriod(calendars, currentDate, e.target.value);
     const categoryTimeSpent = this.statisticModel.getCategoryTimeSpent(categoryInPeriod);
